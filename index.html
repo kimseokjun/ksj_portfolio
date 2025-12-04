@@ -100,6 +100,13 @@
             margin-top: 1.5rem;
         }
 
+        h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #e0e0e0;
+            margin: 2rem 0 1.5rem 0;
+        }
+
         /* 프로젝트 레이아웃 */
         .project-layout {
             display: grid;
@@ -168,6 +175,10 @@
             border-left: 3px solid #64b5f6;
         }
 
+        .achievement-item.text-only {
+            padding-bottom: 1rem;
+        }
+
         .achievement-title {
             font-size: 0.95rem;
             font-weight: 700;
@@ -189,24 +200,6 @@
             background: #0d0d0d;
             border-radius: 4px;
             padding: 1rem 0;
-        }
-
-        .chart-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .chart-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .chart-label {
-            font-size: 0.85rem;
-            color: #888;
-            margin-bottom: 0.5rem;
-            text-align: center;
         }
 
         .achievement {
@@ -299,10 +292,6 @@
                 padding-left: 0;
                 padding-top: 1.5rem;
             }
-
-            .chart-grid {
-                grid-template-columns: 1fr;
-            }
         }
 
         @media (max-width: 600px) {
@@ -331,7 +320,7 @@
                 안녕하세요, <span id="greetingName">김석준</span> 입니다;
             </div>
             <div class="intro">
-                <h1>About me 🧑‍💻</h1>
+                <h1>김석준 🧑‍💻</h1>
                 <div class="tagline">성능 최적화와 안정성 향상에 집중하는 백엔드 개발자</div>
                 <p>
                     저는 성능 최적화와 안정성 향상에 집중하는 백엔드 개발자입니다.
@@ -371,12 +360,14 @@
 
                     <!-- 오른쪽 콘텐츠 -->
                     <div class="project-content">
-                        <h3>실시간 경매 플랫폼</h3>
+                        <h3>MSA 기반 실시간 경매 플랫폼</h3>
                         <p style="font-size: 0.95rem; color: #b0b0b0; margin-bottom: 2rem; line-height: 1.7; margin-top: 0.5rem;">
                             높은 동시성 처리와 성능 최적화를 중심으로 설계한 프로젝트입니다. 
                             100만 건 규모의 데이터에서 검색 응답시간 92% 감소, 
                             CPU 부하 87% 감소 등 구체적인 성과를 달성했습니다.
                         </p>
+
+                        <h4>주요 성과</h4>
 
                         <!-- 검색 성능 -->
                         <div class="achievement-item">
@@ -430,67 +421,45 @@
                             </div>
                         </div>
 
+                        <h4>기타 성과</h4>
+
                         <!-- Virtual Thread -->
-                        <div class="achievement-item">
+                        <div class="achievement-item text-only">
                             <div class="achievement-title">🧵 Virtual Thread 도입 (동시성 처리 효율화)</div>
-                            <div class="achievement-metric">TPS 2.7배 증가, 응답 시간 99.4% 개선</div>
-                            <p style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 1rem;">
-                                Java Virtual Thread 도입으로 블로킹 I/O 효율적 처리.
-                                TPS 146.6 → 395.0, 평균 응답 시간 1,760ms → 9.9ms, P95 19.6초 → 17.2ms.
+                            <p style="font-size: 0.9rem; color: #b0b0b0;">
+                                Java Virtual Thread 도입으로 블로킹 I/O 효율적 처리. TPS 2.7배 증가 (146.6 → 395.0),<br>
+                                평균 응답 시간 99.4% 개선 (1,760ms → 9.9ms), <br>
+                                P95 응답 시간 1,000배 이상 개선 (19.6초 → 17.2ms).
                             </p>
-                            <div class="chart-container">
-                                <canvas id="vtChart"></canvas>
-                            </div>
                         </div>
 
                         <!-- Lambda SnapStart -->
-                        <div class="achievement-item">
+                        <div class="achievement-item text-only">
                             <div class="achievement-title">⚙️ Lambda SnapStart 적용 (조회 API 최적화)</div>
-                            <div class="achievement-metric">47.83ms → 4.06ms (91.5% 감소, 12배 향상)</div>
-                            <p style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 1rem;">
-                                AWS Lambda SnapStart로 초기화 시간 최적화. 
-                                월 8,640회 스케줄 실행 환경에서 성능 안정성 3.8배 → 1.3배.
+                            <p style="font-size: 0.9rem; color: #b0b0b0;">
+                               평균 실행 시간 91.5% 감소 (47.83ms → 4.06ms, 약 12배 향상),<br>
+                               월 8,640회 스케줄 실행 환경에서 성능 안정성 향상 (변동폭 3.8배 → 1.3배).
                             </p>
-                            <div class="chart-container">
-                                <canvas id="snapstartChart"></canvas>
-                            </div>
                         </div>
 
                         <!-- CloudFront CDN -->
-                        <div class="achievement-item">
+                        <div class="achievement-item text-only">
                             <div class="achievement-title">🌐 CloudFront CDN 도입 (정적 파일 제공 최적화)</div>
-                            <div class="achievement-metric">1,232ms → 27ms (45배 개선)</div>
-                            <p style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 1rem;">
-                                CloudFront CDN으로 정적 파일 캐싱 및 글로벌 엣지 로케이션 활용.
-                                최초 응답 1,216ms → 60ms, OAC 설정으로 보안 강화.
+                            <p style="font-size: 0.9rem; color: #b0b0b0;">
+                                CloudFront CDN으로 정적 파일 캐싱 및 글로벌 엣지 로케이션 활용. <br>
+                                평균 응답 시간 45배 개선 (1,232ms → 27ms),<br>
+                                최초 응답 시간 대폭 단축 (1,216ms → 60ms), OAC 설정으로 보안 강화 및 원본 장애 시 가용성 향상.
                             </p>
-                            <div class="chart-container">
-                                <canvas id="cdnChart"></canvas>
-                            </div>
                         </div>
 
                         <!-- ECS ARM -->
-                        <div class="achievement-item">
+                        <div class="achievement-item text-only">
                             <div class="achievement-title">💰 ECS ARM 아키텍처 전환 (비용 최적화)</div>
-                            <div class="achievement-metric">P95 응답 20% 단축, 비용 20% 절감</div>
-                            <p style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 1rem;">
-                                Fargate X86_64 → ARM64(Graviton2) 전환.
-                                P95 850ms → 680ms, 시간당 비용 $0.054 → $0.043, 비용 대비 성능 효율 56% 향상.
+                            <p style="font-size: 0.9rem; color: #b0b0b0;">
+                                Fargate X86_64 → ARM64(Graviton2) 전환.<br>
+                                P95 응답 시간 20% 단축 (850ms → 680ms), <br>
+                                시간당 실행 비용 20% 절감 ($0.054 → $0.043), 비용 대비 성능 효율 56% 향상.
                             </p>
-                            <div class="chart-grid">
-                                <div class="chart-item">
-                                    <div class="chart-label">P95 응답시간 (ms)</div>
-                                    <div class="chart-container">
-                                        <canvas id="armResponseChart"></canvas>
-                                    </div>
-                                </div>
-                                <div class="chart-item">
-                                    <div class="chart-label">시간당 실행 비용 (USD)</div>
-                                    <div class="chart-container">
-                                        <canvas id="armCostChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -540,7 +509,7 @@
                         <strong>MySQL</strong><br>
                         프로젝트의 DB로 활용한 경험이 있으며, 트랜잭션, 인덱싱과 같은 개념을 이해하고 있습니다.<br><br>
                         <strong>ElasticSearch</strong><br>
-                        전문 검색 엔진 구축 및 형태소 분석 기반 검색 시스템 최적화 경험이 있습니다.
+                        전문 검색 엔진 구축 및 형태소 분석 기반 검색 시스템 최적화 경험.
                     </div>
                 </div>
 
@@ -549,15 +518,23 @@
                     <div class="skill-content">
                         <strong>AWS</strong><br>
                         EC2, RDS, S3, Aurora MySQL, ECS/Fargate, Lambda, CloudFront, Route 53 등 클라우드 서비스를 활용한 경험.
-                        성능 모니터링 및 비용 최적화 경험이 있습니다.
+                        성능 모니터링 및 비용 최적화 경험 보유.
                     </div>
                 </div>
 
+                <div class="skill-category">
+                    <h4>Caching & Message Queue</h4>
+                    <div class="skill-content">
+                        <strong>Redis</strong> • <strong>RabbitMQ</strong><br>
+                        분산 락, 캐싱, 이벤트 기반 비동기 처리 구현 경험.
+                        동시성 제어 및 시스템 확장성 확보 방안 이해.
+                    </div>
+                </div>
             </section>
 
             <!-- ABOUT ME -->
             <section>
-                <h2>그래서 저는</h2>
+                <h2>그래서 저는요</h2>
 
                 <div class="achievement">🎯 성능 최적화와 안정성 향상에 집중하는 개발자입니다. 단순히 작동하는 코드가 아닌, 대규모 트래픽 환경에서 견고하게 확장되는 시스템 설계를 추구합니다.</div>
                 
@@ -568,16 +545,13 @@
         </main>
 
         <footer>
-            <p>Backend Developer • Performance Optimization & System Stability</p>
             <div class="link-group">
-                <a href="https://github.com">GitHub</a>
-                <a href="mailto:dev@example.com">Email</a>
+                <a href="https://github.com/kimseokjun">GitHub</a>
             </div>
-            <p style="margin-top: 1rem; font-size: 0.8rem; color: #444;">Last updated 2025</p>
         </footer>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Chart.js 기본 설정
         Chart.defaults.color = '#b0b0b0';
         Chart.defaults.borderColor = '#2a2a2a';
@@ -661,7 +635,7 @@
                 datasets: [{
                     label: '값',
                     data: [6.5, 2.5, 7.9, 12.2],
-                    backgroundColor: ['#ef5350', '#64b5f6', '#ffa726', '#81c784'],
+                    backgroundColor: ['#ef5350', '#64b5f6', '#ef5350', '#64b5f6'],
                     borderRadius: 4,
                     borderSkipped: false
                 }]
@@ -697,171 +671,6 @@
                     borderSkipped: false,
                     barPercentage: 0.5,
                     categoryPercentage: 0.6
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: '#1a1a1a' }
-                    },
-                    x: {
-                        grid: { display: false }
-                    }
-                }
-            }
-        });
-
-        // 5. Virtual Thread
-        new Chart(document.getElementById('vtChart'), {
-            type: 'bar',
-            data: {
-                labels: ['적용 전', '적용 후'],
-                datasets: [{
-                    label: 'TPS',
-                    data: [146.6, 395.0],
-                    backgroundColor: ['#ef5350', '#64b5f6'],
-                    borderRadius: 4,
-                    borderSkipped: false,
-                    barPercentage: 0.5,
-                    categoryPercentage: 0.6
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: '#1a1a1a' }
-                    },
-                    x: {
-                        grid: { display: false }
-                    }
-                }
-            }
-        });
-
-        // 6. Lambda SnapStart
-        new Chart(document.getElementById('snapstartChart'), {
-            type: 'bar',
-            data: {
-                labels: ['평균', '최소', '최대'],
-                datasets: [
-                    {
-                        label: '적용 전',
-                        data: [47.83, 19.77, 75.73],
-                        backgroundColor: '#ef5350',
-                        borderRadius: 4
-                    },
-                    {
-                        label: '적용 후',
-                        data: [4.06, 3.56, 4.63],
-                        backgroundColor: '#64b5f6',
-                        borderRadius: 4
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: '#1a1a1a' }
-                    },
-                    x: {
-                        grid: { display: false }
-                    }
-                }
-            }
-        });
-
-        // 7. CloudFront CDN
-        new Chart(document.getElementById('cdnChart'), {
-            type: 'bar',
-            data: {
-                labels: ['최초 응답시간', '평균 응답시간'],
-                datasets: [
-                    {
-                        label: '적용 전',
-                        data: [1216, 1232],
-                        backgroundColor: '#ef5350',
-                        borderRadius: 4
-                    },
-                    {
-                        label: '적용 후',
-                        data: [60, 27],
-                        backgroundColor: '#64b5f6',
-                        borderRadius: 4
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: '#1a1a1a' }
-                    },
-                    x: {
-                        grid: { display: false }
-                    }
-                }
-            }
-        });
-
-        // 8. ECS ARM - Response Time
-        new Chart(document.getElementById('armResponseChart'), {
-            type: 'bar',
-            data: {
-                labels: ['X86_64', 'ARM64'],
-                datasets: [{
-                    label: 'P95 응답시간 (ms)',
-                    data: [850, 680],
-                    backgroundColor: ['#ef5350', '#64b5f6'],
-                    borderRadius: 4,
-                    borderSkipped: false
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: '#1a1a1a' }
-                    },
-                    x: {
-                        grid: { display: false }
-                    }
-                }
-            }
-        });
-
-        // 8. ECS ARM - Cost
-        new Chart(document.getElementById('armCostChart'), {
-            type: 'bar',
-            data: {
-                labels: ['X86_64', 'ARM64'],
-                datasets: [{
-                    label: '시간당 비용 (USD)',
-                    data: [0.054, 0.043],
-                    backgroundColor: ['#ef5350', '#64b5f6'],
-                    borderRadius: 4,
-                    borderSkipped: false
                 }]
             },
             options: {
