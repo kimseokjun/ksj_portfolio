@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kim seok jun - Backend Developer Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0d0d0d;
+            color: #e0e0e0;
+            line-height: 1.8;
+        }
+
+        a {
+            color: #64b5f6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            padding: 4rem 0 2rem 0;
+        }
+
+        .intro {
+            margin-bottom: 3rem;
+        }
+
+        .intro h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .intro p {
+            font-size: 0.95rem;
+            color: #b0b0b0;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        section {
+            margin: 3rem 0;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            margin-top: 1.5rem;
+        }
+
+        .project {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .project:last-child {
+            border-bottom: none;
+        }
+
+        .project-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-title h3 {
+            margin-top: 0;
+        }
+
+        .period {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .tech-stack {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 0.8rem;
+            word-break: break-word;
+        }
+
+        .project-desc {
+            font-size: 0.95rem;
+            color: #b0b0b0;
+            margin-bottom: 0.8rem;
+            line-height: 1.7;
+        }
+
+        .achievement {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .achievement::before {
+            content: '• ';
+            color: #666;
+            font-weight: 700;
+        }
+
+        .skill-category {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-category h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            color: #666;
+            letter-spacing: 0.5px;
+        }
+
+        .skill-content {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            line-height: 1.7;
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-header h3 {
+            margin-top: 0;
+        }
+
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            line-height: 1.7;
+        }
+
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #666;
+            border-top: 1px solid #2a2a2a;
+            margin-top: 3rem;
+        }
+
+        .link-group {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .link-group a {
+            margin-right: 1.5rem;
+            color: #64b5f6;
+        }
+
+        /* 성과 섹션 스타일 */
+        .achievements-section {
+            margin-top: 2rem;
+        }
+
+        .achievement-item {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: #1a1a1a;
+            border-radius: 6px;
+            border-left: 3px solid #64b5f6;
+        }
+
+        .achievement-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #64b5f6;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-metric {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 1rem;
+            background: #0d0d0d;
+            border-radius: 4px;
+            padding: 1rem 0;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .chart-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .intro h1 {
+                font-size: 1.8rem;
+            }
+
+            .project-title {
+                flex-direction: column;
+            }
+
+            .period {
+                margin-top: 0.3rem;
+            }
+
+            .chart-container {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="intro">
+                <h1>King 🧑‍💻</h1>
+                <p>
+                    성능 최적화와 안정성 향상에 집중하는 백엔드 개발자입니다.<br>
+                    더 높은 처리량을 설계하는 방식을 배우고자 Up-Pick 프로젝트에서 Replica DB + CQRS + Redis 구조를<br>
+                    구축했고, 그 과정에서 DB 부하 80%, CPU 부하 87% 감소를 경험했습니다.<br>
+                    이 경험을 바탕으로 대규모 트래픽 환경에서도 견고하게 확장되는 서비스를 만들고 싶습니다.<br>
+                    입사 후에는 서비스 구조를 깊이 이해하며 지속적인 성능 개선과 신뢰성 있는 백엔드 구축에 기여하고자 합니다.
+                </p>
+            </div>
+        </header>
+
+        <main>
+            <!-- PROJECTS SECTION -->
+            <section>
+                <h2>프로젝트</h2>
+
+                <div class="project">
+                    <div class="project-title">
+                        <h3>Up-Pick</h3>
+                        <span class="period">2025.10 ~ 2025.11</span>
+                    </div>
+                    <div class="tech-stack">
+                        Spring Boot 3.5.6 • Java 21 • MySQL 8.0 • Redis • RabbitMQ • ElasticSearch • JPA • QueryDSL • AWS Aurora • AWS ECS/Fargate • Docker
+                    </div>
+                    <div class="project-desc">
+                        MSA 기반 실시간 경매 플랫폼. 높은 동시성 처리와 성능 최적화를 중심으로 설계했습니다.
+                    </div>
+
+                    <div class="achievements-section">
+                        <!-- 검색 성능 -->
+                        <div class="achievement-item">
+                            <div class="achievement-title">🔍 검색 성능 개선 (ElasticSearch)</div>
+                            <div class="achievement-metric">690ms → 52ms (92% 감소)</div>
+                            <p style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 1rem;">
+                                100만 건 데이터 환경에서 MySQL LIKE 검색의 Full Table Scan 문제를 ElasticSearch로 해결. 
+                                응답 시간 13배 향상.
+                            </p>
+                            <div class="chart-container">
+                                <canvas id="searchChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Replica 적용 -->
+                        <div class="achievement-item">
+                            <div class="achievement-title">⚡ Replica DB 적용 (읽기/쓰기 분리)</div>
+                            <div class="achievement-metric">Master CPU 800% → 30%, Slave 700%</div>
+                            <p style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 1rem;">
+                                Master-Slave 복제를 통한 읽기 부하 분산. CQRS 패턴으로 조회 로직을 Slave DB로 라우팅.
+                                평균 TPS 6% 향상.
+                            </p>
+                            <div class="chart-container">
+                                <canvas id="replicaChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Redis 캐시 -->
+                        <div class="achievement-item">
+                            <div class="achievement-title">💾 Redis 캐시 적용 (입찰 시스템 부하 분산)</div>
+                            <div class="achievement-metric">CPU 50% 절감, TPS 1.5배 향상</div>
+                            <p style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 1rem;">
+                                입찰가 조회/업데이트를 메모리 기반으로 전환. 
+                                CPU 5~8% → 2~3%, TPS 7.9 → 12.2 (피크 시간당 +1,240건).
+                            </p>
+                            <div class="chart-container">
+                                <canvas id="redisChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Message Queue -->
+                        <div class="achievement-item">
+                            <div class="achievement-title">📨 Message Queue 도입 (입찰 처리 비동기화)</div>
+                            <div class="achievement-metric">240ms → 153ms (36% 감소)</div>
+                            <p style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 1rem;">
+                                핵심 로직과 비핵심 로직 분리로 응답 시간 단축. 
+                                비동기 처리로 시스템 확장성 확보 및 후처리 로직 독립적 관리 가능.
+                            </p>
+                            <div class="chart-container">
+                                <canvas id="mqChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Virtual Thread -->
+                        <div class="achievement-item">
+                            <div class="achievement-title">🧵 Virtual Thread 도입 (동시성 처리 효율화)</div>
+                            <div class="achievement-metric">TPS 2.7배 증가, 응답 시간 99.4% 개선</div>
+                            <p style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 1rem;">
+                                Java Virtual Thread 도입으로 블로킹 I/O 효율적 처리.
+                                TPS 146.6 → 395.0, 평균 응답 시간 1,760ms → 9.9ms, P95 19.6초 → 17.2ms.
+                            </p>
+                            <div class="chart-container">
+                                <canvas id="vtChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Lambda SnapStart -->
+                        <div class="achievement-item">
+                            <div class="achievement-title">⚙️ Lambda SnapStart 적용 (조회 API 최적화)</div>
+                            <div class="achievement-metric">47.83ms → 4.06ms (91.5% 감소, 12배 향상)</div>
+                            <p style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 1rem;">
+                                AWS Lambda SnapStart로 초기화 시간 최적화. 
+                                월 8,640회 스케줄 실행 환경에서 성능 안정성 3.8배 → 1.3배.
+                            </p>
+                            <div class="chart-container">
+                                <canvas id="snapstartChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- CloudFront CDN -->
+                        <div class="achievement-item">
+                            <div class="achievement-title">🌐 CloudFront CDN 도입 (정적 파일 제공 최적화)</div>
+                            <div class="achievement-metric">1,232ms → 27ms (45배 개선)</div>
+                            <p style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 1rem;">
+                                CloudFront CDN으로 정적 파일 캐싱 및 글로벌 엣지 로케이션 활용.
+                                최초 응답 1,216ms → 60ms, OAC 설정으로 보안 강화.
+                            </p>
+                            <div class="chart-container">
+                                <canvas id="cdnChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- ECS ARM -->
+                        <div class="achievement-item">
+                            <div class="achievement-title">💰 ECS ARM 아키텍처 전환 (비용 최적화)</div>
+                            <div class="achievement-metric">P95 응답 20% 단축, 비용 20% 절감</div>
+                            <p style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 1rem;">
+                                Fargate X86_64 → ARM64(Graviton2) 전환.
+                                P95 850ms → 680ms, 시간당 비용 $0.054 → $0.043, 비용 대비 성능 효율 56% 향상.
+                            </p>
+                            <div class="chart-grid">
+                                <div class="chart-item">
+                                    <div class="chart-label">P95 응답시간 (ms)</div>
+                                    <div class="chart-container">
+                                        <canvas id="armResponseChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="chart-item">
+                                    <div class="chart-label">시간당 실행 비용 (USD)</div>
+                                    <div class="chart-container">
+                                        <canvas id="armCostChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EDUCATION SECTION -->
+            <section>
+                <h2>교육 & 활동</h2>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>내일배움캠프 Spring 8기</h3>
+                        <span class="period">2025.06 ~ 2025.11</span>
+                    </div>
+                    <div class="timeline-desc">
+                        Java와 Spring Boot를 기반으로 한 백엔드 웹 애플리케이션 개발 전반을 학습.
+                        JPA/Hibernate를 활용한 데이터베이스 연동, REST API 설계 및 구현, JWT 기반 인증·인가 처리 등 실무 환경에서 활용되는 핵심 기술을 집중적으로 실습했습니다.
+                    </div>
+                </div>
+            </section>
+
+            <!-- SKILLS SECTION -->
+            <section>
+                <h2>기술 역량</h2>
+
+                <div class="skill-category">
+                    <h4>Language</h4>
+                    <div class="skill-content">
+                        <strong>Java</strong><br>
+                        SOLID 원칙과 디자인 패턴을 고려하여 확장성 있는 백엔드 코드를 작성할 수 있습니다.
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Framework & Library</h4>
+                    <div class="skill-content">
+                        <strong>Spring Boot</strong><br>
+                        Spring Framework의 IoC, DI와 같은 핵심원리를 이해하고 있으며, 기본적인 디자인 패턴을 활용한 설계를 할 수 있습니다.<br><br>
+                        <strong>JPA/Hibernate</strong><br>
+                        데이터베이스 연동, 쿼리 최적화, N+1 문제 해결 경험이 있습니다.
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Database & Search</h4>
+                    <div class="skill-content">
+                        <strong>MySQL</strong><br>
+                        프로젝트의 DB로 활용한 경험이 있으며, 트랜잭션, 인덱싱과 같은 개념을 이해하고 있습니다.<br><br>
+                        <strong>ElasticSearch</strong><br>
+                        전문 검색 엔진 구축 및 형태소 분석 기반 검색 시스템 최적화 경험.
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Infrastructure & Cloud</h4>
+                    <div class="skill-content">
+                        <strong>AWS</strong><br>
+                        EC2, RDS, S3, Aurora MySQL, ECS/Fargate, Lambda, CloudFront, Route 53 등 클라우드 서비스를 활용한 경험.
+                        성능 모니터링 및 비용 최적화 경험 보유.
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Caching & Message Queue</h4>
+                    <div class="skill-content">
+                        <strong>Redis</strong> • <strong>RabbitMQ</strong><br>
+                        분산 락, 캐싱, 이벤트 기반 비동기 처리 구현 경험.
+                        동시성 제어 및 시스템 확장성 확보 방안 이해.
+                    </div>
+                </div>
+            </section>
+
+            <!-- KEY LEARNINGS -->
+            <section>
+                <h2>핵심 학습</h2>
+
+                <div class="achievement">대규모 트래픽 환경에서의 성능 최적화 - DB 복제, 캐싱, 비동기 처리의 조합</div>
+                <div class="achievement">분산 시스템의 동시성 제어 - Redis 분산 락을 통한 안정성 확보</div>
+                <div class="achievement">마이크로서비스 아키텍처 - 서비스 간 느슨한 결합과 높은 응집도</div>
+                <div class="achievement">이벤트 기반 아키텍처 - RabbitMQ를 활용한 비동기 메시지 처리</div>
+                <div class="achievement">데이터베이스 최적화 - 인덱싱, 쿼리 튜닝, 읽기/쓰기 분리</div>
+                <div class="achievement">클라우드 인프라 최적화 - 비용과 성능의 균형잡힌 아키텍처 설계</div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Backend Developer • Performance Optimization & System Stability</p>
+            <div class="link-group">
+                <a href="https://github.com">GitHub</a>
+                <a href="mailto:dev@example.com">Email</a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.8rem; color: #444;">Last updated 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Chart.js 기본 설정
+        Chart.defaults.color = '#b0b0b0';
+        Chart.defaults.borderColor = '#2a2a2a';
+
+        // 1. 검색 성능
+        new Chart(document.getElementById('searchChart'), {
+            type: 'bar',
+            data: {
+                labels: ['기본 MySQL', 'Full-Text Search', 'ElasticSearch'],
+                datasets: [{
+                    label: '응답시간 (ms)',
+                    data: [690, 302, 52],
+                    backgroundColor: ['#ef5350', '#ffa726', '#64b5f6'],
+                    borderRadius: 4,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#1a1a1a' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            },
+            plugins: [{
+                id: 'barThickness',
+                afterDatasetsDraw(chart) {
+                    chart.data.datasets.forEach(dataset => {
+                        dataset.barPercentage = 0.5;
+                        dataset.categoryPercentage = 0.6;
+                    });
+                }
+            }]
+        });
+
+        // 2. Replica 적용
+        new Chart(document.getElementById('replicaChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Master (Before)', 'Master (After)', 'Slave (After)'],
+                datasets: [{
+                    label: 'CPU 사용률 (%)',
+                    data: [800, 30, 700],
+                    backgroundColor: ['#ef5350', '#ef5350', '#81c784'],
+                    borderRadius: 4,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#1a1a1a' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 3. Redis 캐시
+        new Chart(document.getElementById('redisChart'), {
+            type: 'bar',
+            data: {
+                labels: ['CPU 적용전', 'CPU 적용후', 'TPS 적용전', 'TPS 적용후'],
+                datasets: [{
+                    label: '값',
+                    data: [6.5, 2.5, 7.9, 12.2],
+                    backgroundColor: ['#ef5350', '#64b5f6', '#ef5350', '#64b5f6'],
+                    borderRadius: 4,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#1a1a1a' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 4. Message Queue
+        new Chart(document.getElementById('mqChart'), {
+            type: 'bar',
+            data: {
+                labels: ['적용 전', '적용 후'],
+                datasets: [{
+                    label: '평균 응답시간 (ms)',
+                    data: [240, 153],
+                    backgroundColor: ['#ef5350', '#64b5f6'],
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    barPercentage: 0.5,
+                    categoryPercentage: 0.6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#1a1a1a' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 5. Virtual Thread
+        new Chart(document.getElementById('vtChart'), {
+            type: 'bar',
+            data: {
+                labels: ['적용 전', '적용 후'],
+                datasets: [{
+                    label: 'TPS',
+                    data: [146.6, 395.0],
+                    backgroundColor: ['#ef5350', '#64b5f6'],
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    barPercentage: 0.5,
+                    categoryPercentage: 0.6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#1a1a1a' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 6. Lambda SnapStart
+        new Chart(document.getElementById('snapstartChart'), {
+            type: 'bar',
+            data: {
+                labels: ['평균', '최소', '최대'],
+                datasets: [
+                    {
+                        label: '적용 전',
+                        data: [47.83, 19.77, 75.73],
+                        backgroundColor: '#ef5350',
+                        borderRadius: 4
+                    },
+                    {
+                        label: '적용 후',
+                        data: [4.06, 3.56, 4.63],
+                        backgroundColor: '#64b5f6',
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#1a1a1a' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 7. CloudFront CDN
+        new Chart(document.getElementById('cdnChart'), {
+            type: 'bar',
+            data: {
+                labels: ['최초 응답시간', '평균 응답시간'],
+                datasets: [
+                    {
+                        label: '적용 전',
+                        data: [1216, 1232],
+                        backgroundColor: '#ef5350',
+                        borderRadius: 4
+                    },
+                    {
+                        label: '적용 후',
+                        data: [60, 27],
+                        backgroundColor: '#64b5f6',
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#1a1a1a' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 8. ECS ARM - Response Time
+        new Chart(document.getElementById('armResponseChart'), {
+            type: 'bar',
+            data: {
+                labels: ['X86_64', 'ARM64'],
+                datasets: [{
+                    label: 'P95 응답시간 (ms)',
+                    data: [850, 680],
+                    backgroundColor: ['#ef5350', '#64b5f6'],
+                    borderRadius: 4,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#1a1a1a' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 8. ECS ARM - Cost
+        new Chart(document.getElementById('armCostChart'), {
+            type: 'bar',
+            data: {
+                labels: ['X86_64', 'ARM64'],
+                datasets: [{
+                    label: '시간당 비용 (USD)',
+                    data: [0.054, 0.043],
+                    backgroundColor: ['#ef5350', '#64b5f6'],
+                    borderRadius: 4,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#1a1a1a' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
